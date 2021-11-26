@@ -40,3 +40,25 @@ class Cliente(cf.Connection):
 
         except Exception as e:
             print(f'Erro ao inserir os dados\n{e}')
+
+    def find_by_cpf(self, cpf):
+        try:
+            sql = f'SELECT * FROM Cliente WHERE cpf = %s'
+            self.executeQuery(sql, [cpf])
+            records = self.cursor.fetchone()
+
+            return records
+
+        except Exception as e:
+            print(f'Erro ao executar a query')
+
+    def find_by_id(self, id):
+        try:
+            sql = f'SELECT * FROM Cliente WHERE id = %s'
+            self.executeQuery(sql, [id])
+            records = self.cursor.fetchone()
+
+            return records
+
+        except Exception as e:
+            print(f'Erro ao executar a query')

@@ -7,5 +7,4 @@ Projeto feito para a AP2 da disciplina de Práticas de Progrmação do 1º perí
 ## Tecnologias
 * [Docker](https://docs.docker.com/)
 * [Python 3](https://docs.python.org/3/)
-* [Psycopg2](https://pypi.org/project/psycopg2/)
 * [PostgreSQL](https://www.postgresql.org/docs/)

@@ -19,8 +19,8 @@ class Connection(Config):
         Config.__init__(self)
 
         try:
-            self.conn = db.connect(**self.config.get("postgres"))
-            self.cur = self.conn.cursor()
+            self.connection = db.connect(**self.config.get("postgres"))
+            self.cursor = self.connection.cursor()
 
         except Exception as e:
             print(f'''Erro ao se conectar ao banco de dados\n{e}''')
@@ -33,14 +33,6 @@ class Connection(Config):
         self.commit()
         self.cursor.close()
         self.connection.close()
-
-    @property
-    def connection(self):
-        return self.conn
-
-    @property
-    def cursor(self):
-        return self.cur
 
     def commit(self):
         self.connection.commit()

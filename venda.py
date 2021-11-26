@@ -2,14 +2,14 @@ import csv
 import connection_factory as cf
 
 
-class Motocicleta(cf.Connection):
+class Venda(cf.Connection):
 
     def __init__(self, **kwargs):
         cf.Connection.__init__(self)
 
     def insert(self, *args):
         try:
-            query = f'INSERT INTO Motocicleta (cod, modelo, valor, qtd_estoque) VALUES (%s ,%s, %s, %s)'
+            query = f'INSERT INTO Venda (id_cliente, id_motocicleta) VALUES (%s ,%s)'
             self.executeQuery(query, tuple(args))
             self.commit()
 
@@ -20,7 +20,7 @@ class Motocicleta(cf.Connection):
         try:
             data = csv.DictReader(open(filename, encoding="utf-8"))
             for row in data:
-                self.insert(row['cod'], row['modelo'], row['valor'], row['qtd_estoque'])
+                self.insert(row['id_cliente'], row['id_motocicleta'])
             print("Registros inseridos com sucesso")
 
         except Exception as e:
@@ -28,12 +28,12 @@ class Motocicleta(cf.Connection):
 
     def delete(self, cod):
         try:
-            sql = f'SELECT * FROM Motocicleta WHERE cod=%s'
+            sql = f'SELECT * FROM Venda WHERE id=%s'
 
             if self.executeQuery(sql, [cod]):
                 print(f'Registro não encontrado!')
             else:
-                sql = f'DELETE FROM Motocicleta WHERE cod=%s'
+                sql = f'DELETE FROM Venda WHERE id=%s'
                 self.executeQuery(sql, [cod])
                 self.commit()
                 print('Registro deletado com sucesso!')
@@ -41,19 +41,19 @@ class Motocicleta(cf.Connection):
         except Exception as e:
             print(f'Erro ao inserir os dados\n{e}')
 
-    def find_by_code(self, code):
+    def select_all(self):
         try:
-            sql = f'SELECT * FROM Motocicleta WHERE cod=%s'
-            self.executeQuery(sql, [code])
+            sql = f'SELECT * FROM Venda'
+            self.executeQuery(sql)
+            records = self.cursor.fetchall()
 
-            return self.cursor.fetchone()
-
+            return records
         except Exception as e:
-            print(f'Erro ao executar a consulta')
+            print(f'Erro na base de dados\n{e}')
 
     def find_by_id(self, id):
         try:
-            sql = f'SELECT * FROM Motocicleta WHERE id = %s'
+            sql = f'SELECT * FROM Venda WHERE id = %s'
             self.executeQuery(sql, [id])
             records = self.cursor.fetchone()
 
@@ -61,4 +61,3 @@ class Motocicleta(cf.Connection):
 
         except Exception as e:
             print(f'Erro ao executar a query')
-

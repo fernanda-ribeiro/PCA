@@ -13,3 +13,12 @@ CREATE TABLE Motocicleta (
     valor NUMERIC(20, 2) NOT NULL,
     qtd_estoque INTEGER DEFAULT 0
 );
+
+CREATE TABLE Venda (
+    id SERIAL PRIMARY KEY,
+    id_cliente INTEGER NOT NULL,
+    id_motocicleta INTEGER NOT NULL,
+    data_venda DATE DEFAULT CURRENT_DATE,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id),
+    FOREIGN KEY (id_motocicleta) REFERENCES Motocicleta(id)
+);

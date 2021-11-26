@@ -1,4 +1,6 @@
 import telas
+from cliente import Cliente
+from venda import Venda
 from motocicleta import Motocicleta
 
 def main():
@@ -23,10 +25,13 @@ def main():
     1 -  Cadastrar Cliente
     2 -  Registrar Veículo
     3 -  Deletar um registro
-    4 -  Sair 
+    4 -  Efetuar venda
+    5 -  Listar todas as vendas
+    6 -  Consultar Venda
+    7 -  Sair
 ''')
         opt = int(input(">> ").strip())
-        exit = opt == 4
+        exit = opt == 7
 
         if opt == 1 or opt == 2:
             telas.cadastrar(opt)
@@ -34,8 +39,22 @@ def main():
         if opt == 3:
             telas.deletar()
 
+        if opt == 4:
+            telas.vender()
+
+        if opt == 5:
+            telas.listar_vendas()
+
+        if opt == 6:
+            telas.consultar_venda()
+
 
 if __name__ == '__main__':
-    # db = Motocicleta()
-    # db.insert_many('./database/data/motocicleta.csv')
+    # dbm = Motocicleta()
+    # dbc = Cliente()
+    # dbv = Venda()
+    # dbc.insert_many('./database/data/cliente.csv')
+    # dbm.insert_many('./database/data/motocicleta.csv')
+    # dbv.insert_many('./database/data/vendas.csv')
+
     main()
